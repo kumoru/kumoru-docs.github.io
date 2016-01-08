@@ -4,7 +4,7 @@ WORKSPACE=${WORKSPACE:=$(pwd)}
 
 rm -rf build
 mkdir build
-DOCKER_CONTAINER=$(sudo docker --tls=true run -v ${WORKSPACE}:/app/source -v ${WORKSPACE}/build:/app/build quay.io/kumoru/slate rake build)
+DOCKER_CONTAINER=$(docker run -v ${WORKSPACE}:/app/source -v ${WORKSPACE}/build:/app/build quay.io/kumoru/slate rake build)
 
 _=$(git branch -D gh-pages)
 git checkout --orphan gh-pages
