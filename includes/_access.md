@@ -4,10 +4,7 @@
 
 There are 2 methods for installing the CLI:
 
-1. Retrieve the binary for your operation system:
-  - [Linux]()
-  - [OS X]()
-
+1. Retrieve the binary for your operation system from [Github](https://github.com/kumoru/kumoru-cli/releases)
 2. Build From Source
  - See building instructions on [Github](https://github.com/kumoru/kumoru-cli)
 
