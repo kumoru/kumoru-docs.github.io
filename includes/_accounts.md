@@ -1,6 +1,6 @@
 # Accounts
 
-###Definition:the data representing an user
+###Definition: the data representing an user
 
 Accounts are used to provide users access to the service.  The permissions structure is designed that a person only needs one account for all of Kumoru even if they are a member of multiple roles.
 
@@ -47,7 +47,7 @@ kumoru accounts show user@example.com
 
 ###Definition: A set of UUIDs, one public and one private, that is used to sign all requests to the Kumoru APIs.
 
-All HTTP requests to Kumoru.io services must be cryptographically signed. We follow this [Internet Draft](http://tools.ietf.org/html/draft-cavage-http-signatures-05) which describes message signing. This is very similar to how [AWS](http://docs.aws.amazon.com/general/latest/gr/sigv4_signing.html) signs their requests.
+All HTTP requests to Kumoru.io services must be cryptographically signed. The Kumoru APIs follow the [Internet Draft](http://tools.ietf.org/html/draft-cavage-http-signatures-05) which describes message signing. This is very similar to how [AWS](http://docs.aws.amazon.com/general/latest/gr/sigv4_signing.html) signs their requests.
 
 As of:
 
@@ -72,7 +72,7 @@ Enter Password:
 
 Concept | CLI Option | Description
 ------- | ---------- | -----------
-force | -f | overwrite config file even it exists
+force | --force | overwrite config file even it exists
 save | -s | save tokens output to config file
 
 **note:** If you do not pass `-s` you will need to manually update `~/.kumoru/config` with the tokens ouput provided.
