@@ -9,7 +9,7 @@ An account is the mechanism by which you can create tokens which are then used f
 ## Create an Account
 
 ```shell
-kumoru accounts create -f John -l Doe -p "mypassword" user@example.com
+kumoru accounts create -f John -l Doe user@example.com
 ```
 
 ### CLI Parameters
@@ -63,7 +63,7 @@ In the future:
 ## Create a Token
 
 ```shell
-kumoru tokens create -s
+kumoru tokens create
 
 Generating new token.
 Enter Username: user@example.com
@@ -73,9 +73,7 @@ Enter Password:
 Concept | CLI Option | Description
 ------- | ---------- | -----------
 force | --force | overwrite config file even it exists
-save | -s | save tokens output to config file
-
-**note:** If you do not pass `-s` you will need to manually update `~/.kumoru/config` with the tokens ouput provided.
+don't save | -d | Print tokens to screen instead of writing to file
 
 ## Delete a Token
 
