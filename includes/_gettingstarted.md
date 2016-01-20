@@ -4,13 +4,19 @@
 
 <aside class="warning">Please note that during our Alpha phase, user accounts must be manually enabled by our team</aside>
 
-1. [Install the CLI](#cli)
-1. [Create an Account](#create-an-account)
-1. Request that your account be enabled.
-1. [Create a Token](#create-a-token)
-1. [Get a Pool UUID](#get-all-pools)
-1. [Create an Application](#create-an-application)
-1. [Deploy an Application](#create-a-deployment)
+1. Install the CLI
+    - Download the latest release: <https://github.com/kumoru/kumoru-cli/releases>
+1. Create an Account
+    - <code>kumoru accounts create -f $firstName -l $lastName -p $yourPassword $emailAddress</code>
+1. Request Kumoru account activation at <support@kumoru.io>
+1. Create a Token
+    - <code> kumoru tokens create </code>
+1. Choose Pool to Deploy Application into, notate UUID
+    - <code> kumoru pools list </code>
+1. Create an Application, notate UUID
+    - <code>kumoru applications create -p 80:8080 -r green=100 -e VERSION=v1 -t $tagName $poolUUID quay.io/kumoru/sample-app $yourAppName</code>
+1. Deploy an Application
+    - <code> kumoru applications deploy $yourAppUUID</code>
 
 ## Sample Application
 
@@ -75,7 +81,7 @@ Here is some information on the options we passed:
 * `quay.io/kumoru/sample-app` is the docker image URL (without the image tag)
 * `sample-app` is the name of the application
 
-If you get a `403 forbideen access to pool …`, make sure they UUID you used it correct.
+If you get a `403 forbidden access to pool …`, make sure they UUID you used it correct.
 
 ##Deploy the sample application
 
