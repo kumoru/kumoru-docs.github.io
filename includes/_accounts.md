@@ -49,6 +49,8 @@ kumoru accounts show user@example.com
 
 All HTTP requests to Kumoru.io services must be cryptographically signed. The Kumoru APIs follow the [Internet Draft](http://tools.ietf.org/html/draft-cavage-http-signatures-05) which describes message signing. This is very similar to how [AWS](http://docs.aws.amazon.com/general/latest/gr/sigv4_signing.html) signs their requests.
 
+<aside class="warning">cURL isn't available to interact with the APIs due to the requirement that all requests be signed.</aside>
+
 As of:
 
 - Dec 2015: You have as many tokens as you like and tokens do not expire.
@@ -58,7 +60,7 @@ In the future:
 
 - The private token in the pair will be encrypted and not accessible by anyone but yourself. If you lose this token are suspect it is compromised, it is recommend you remove the token and use a new one.
 
-<aside class="warning">Remember: Tokens are specific to your account and should not be shared.</aside>
+<aside class="info">Remember: Tokens are specific to your account and should not be shared.</aside>
 
 ## Create a Token
 

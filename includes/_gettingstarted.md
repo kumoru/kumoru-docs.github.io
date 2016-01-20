@@ -2,21 +2,24 @@
 
 ## Quickstart
 
-<aside class="warning">Please note that during our Alpha phase, user accounts must be manually enabled by our team</aside>
+<aside class="warning">Please note that during Alpha release, user accounts must be manually enabled by Kumoru team.</aside>
 
 1. Install the CLI
-    - Download the latest release: <https://github.com/kumoru/kumoru-cli/releases>
+    - Download the latest release: 
+        - <https://github.com/kumoru/kumoru-cli/releases>
+    - Build from source:
+        - <https://github.com/kumoru/kumoru-cli>
 1. Create an Account
-    - <code>kumoru accounts create -f $firstName -l $lastName -p $yourPassword $emailAddress</code>
-1. Request Kumoru account activation at <support@kumoru.io>
-1. Create a Token
-    - <code> kumoru tokens create </code>
+    - <code># kumoru accounts create -f $firstName -l $lastName -p $yourPassword $emailAddress</code>
+1. Request Kumoru [account activation](mailto:support@kumoru.io)
+1. Login via CLI
+    - <code># kumoru login</code>
 1. Choose Pool to Deploy Application into, notate UUID
-    - <code> kumoru pools list </code>
+    - <code># kumoru pools list</code>
 1. Create an Application, notate UUID
-    - <code>kumoru applications create -p 80:8080 -r green=100 -e VERSION=v1 -t $tagName $poolUUID quay.io/kumoru/sample-app $yourAppName</code>
+    - <code># kumoru applications create -p 80:8080 -r green=100 -e VERSION=v1 -t $tagName $poolUUID quay.io/kumoru/sample-app $yourAppName</code>
 1. Deploy an Application
-    - <code> kumoru applications deploy $yourAppUUID</code>
+    - <code># kumoru applications deploy $yourAppUUID</code>
 
 ## Sample Application
 

@@ -14,13 +14,12 @@ kumoru applications create [OPTIONS] POOL_UUID IMG_URL APP_NAME
 ```
 
 ### CLI
-
 Concept | CLI Option | Description
 ------- | ---------- | -----------
-certificate | --certificate_file | The path to a PEM encoded SSL certificate. Setting this on an application will enable SSL on all Ports
-certificate chain| --cetificate_chain_file | The path to a PEM encoded certificate chain. (optional)
-env file | --env_filef | File containing environment variables
-private key | --private_key_file | The path to a PEM encoded private key tied to the certificate. Required if used --certificate
+certificate | -\\\-certificate | The path to a PEM encoded SSL certificate. Setting this on an application will enable SSL on all Ports
+certificate chain| -\\\-certificate_chain | The path to a PEM encoded certificate chain. (optional)
+environment file | -\\\-env_file | File containing environment variables
+private key | -\\\-private_key | The path to a PEM encoded private key tied to the certificate. Required if used --certificate
 SSL port | -ssl_port | Port tied to SSL certificate. See `-p` for details.
 provider credentials | -c | A set of credentials that will be used to create resources on behalf of the application (i.e. ELB)
 environment | -e | String containing a KEY=value environment variable that will be passed to the containers. You may specify multiple of these
