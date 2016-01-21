@@ -44,4 +44,4 @@ All publicly exposed applications are load balanced automatically. Connecting ap
 
 ### Cloud First
 
-Currently Kumoru only runs applications on AWS however additional public clouds will be allowed in the future. This means that applications can take full advantage of what AWS has to offer (RDS, S3, etc).
+Currently Kumoru only runs applications on AWS however additional public clouds will be allowed in the future. This means that applications can take full advantage of what AWS has to offer (RDS, S3, DynamoDB, etc).
