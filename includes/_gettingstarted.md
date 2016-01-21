@@ -16,7 +16,7 @@ The goal of this quickstart is to create, deploy, update, and delete an applicti
     - <code>$ kumoru regions list</code>
 1. [Create Application](#applications)
     - <code>$ kumoru applications create -p 80:8080 -r green=100 -e VERSION=v1 -t $tagName $poolUUID quay.io/kumoru/sample-app $yourAppName</code>
-7 - [Deploy Application](#deployments)
+1. [Deploy Application](#deployments)
     - <code>$ kumoru applications deploy $yourAppUUID</code>
 
 ## Kumoru Command Line Interface
