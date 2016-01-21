@@ -11,7 +11,7 @@ includes:
   - gettingstarted
   - access
   - accounts
-  - pools
+  - regions
   - applications
   - deployments
   - faq

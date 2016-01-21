@@ -1,4 +1,4 @@
-# Accounts
+# Account Management
 
 ###Definition: the data representing an user
 

@@ -1,25 +1,46 @@
 # Getting Started
 
 ## Quickstart
+The goal of this quickstart is to create, deploy, update, and delete an appliction using the Kumoru Command Line Interface.  This is intended to be a short dive into the CLI, but if you would like more information we have anchored the quickstart steps to more detailed sections in the documentation.  
 
 <aside class="warning">Please note that during Alpha release, user accounts must be manually enabled by Kumoru team.</aside>
 
-1. Install the CLI
-    - Download the latest release: 
-        - <https://github.com/kumoru/kumoru-cli/releases>
-    - Build from source:
-        - <https://github.com/kumoru/kumoru-cli>
-1. Create an Account
-    - <code># kumoru accounts create -f $firstName -l $lastName -p $yourPassword $emailAddress</code>
+1. [Install the CLI](#kumoru-command-line-interface)
+    - <https://github.com/kumoru/kumoru-cli/releases>
+1. [Create an Account](#account-management)
+    - <code>$ kumoru accounts create -f $firstName -l $lastName -p $yourPassword $emailAddress</code>
 1. Request Kumoru [account activation](mailto:support@kumoru.io)
-1. Login via CLI
-    - <code># kumoru login</code>
-1. Choose Pool to Deploy Application into, notate UUID
-    - <code># kumoru pools list</code>
-1. Create an Application, notate UUID
-    - <code># kumoru applications create -p 80:8080 -r green=100 -e VERSION=v1 -t $tagName $poolUUID quay.io/kumoru/sample-app $yourAppName</code>
-1. Deploy an Application
-    - <code># kumoru applications deploy $yourAppUUID</code>
+1. [Login via CLI](#kumoru-command-line-interface)
+    - <code> $ kumoru login </code>
+1. [Select Region to Deploy Application](#regions)
+    - <code>$ kumoru regions list</code>
+1. [Create Application](#applications)
+    - <code>$ kumoru applications create -p 80:8080 -r green=100 -e VERSION=v1 -t $tagName $poolUUID quay.io/kumoru/sample-app $yourAppName</code>
+7 - [Deploy Application](#deployments)
+    - <code>$ kumoru applications deploy $yourAppUUID</code>
+
+## Kumoru Command Line Interface
+
+### Getting the Kumoru CLI Client
+There is multiple ways to install the Kumoru CLI client.  Choose the most appropiate method for you:
+
+- Download latest release:
+    - <https://github.com/kumoru/kumoru-cli/releases>
+- Build from source:
+    - <https://github.com/kumoru/kumoru-cli>
+
+<aside class="info">If you do not have a Kumoru account, please visit the <a href="http://docs.kumoru.io/#create-an-account">Accounts</a> section of the documentation to sign up.</aside>
+
+### Basic Usage
+
+```shell
+$ kumoru login
+
+
+Generating new token.
+Enter Username:
+```
+Once you have installed the CLI, the first step you need to do is `login`.  This will generate a new set of tokens for you to interface with the Kumoru service.  To get a full of list of options, you can just run `kumoru` with no arugments.
 
 ## Sample Application
 
@@ -27,16 +48,16 @@ Let's deploy a sample application which will show the deployment workflow, traff
 
 The following steps assume you have an active user account and a valid token.
 
-##Decide which pool to deploy to:
+##Decide which region to deploy to:
 
 ```shell
-kumoru pools list
+kumoru regions list
 
 Location   Uuid                                  Status
 us-east-1  0269fc49-db71-400c-bfb5-cd5f47cc782c  running
 ```
 
-Note the UUID of your pool since you'll need it for the next command.
+Note the UUID of your region, you will need it for the next command.
 
 ##Create the sample application
 
