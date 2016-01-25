@@ -9,7 +9,7 @@ An account is the mechanism by which you can create tokens which are then used f
 ## Create an Account
 
 ```shell
-kumoru accounts create -f John -l Doe user@example.com
+kumoru accounts create -f Roxy -l Ring roxy.ring@example.com
 ```
 
 ### CLI Parameters
@@ -18,6 +18,8 @@ Concept | CLI option | Description
 given name | -f | Your first name
 surname | -l | Your last name
 password | -p | Your password
+
+<aside class="info">The `-p` switch is being deprecated.  The Kumoru CLI will prompt you for a password by just passing `-f` and `-l` options.</aside>
 
 Concept | CLI Arguement | Description
 ------- | ------------- | -----------

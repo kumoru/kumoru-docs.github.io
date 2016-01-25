@@ -2,13 +2,13 @@
 
 ## CLI
 
-There are 2 methods for installing the CLI:
+There is two methods for installing the CLI:
 
-1. Retrieve the binary for your operation system from [Github](https://github.com/kumoru/kumoru-cli/releases)
-2. Build From Source
- - See building instructions on [Github](https://github.com/kumoru/kumoru-cli)
+- Download latest binary release:
+    - <https://github.com/kumoru/kumoru-cli/releases>
+        
+- Build from source:
+    - <https://github.com/kumoru/kumoru-cli>
 
-## WebUI
 
-Alternatively you may access the Web UI at [https://alpha.kumoru.io](https://alpha.kumoru.io)
-
+<aside class="info">If using binary release, remember to make it executable <b><i>"chmod +x /path/to/kumoru/binary"</b></i></aside>

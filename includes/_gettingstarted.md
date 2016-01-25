@@ -40,9 +40,9 @@ $ kumoru login
 Generating new token.
 Enter Username:
 ```
-Once you have installed the CLI, the first step you need to do is `login`.  This will generate a new set of tokens for you to interface with the Kumoru service.  To get a full of list of options, you can just run `kumoru` with no arugments.
+Once you have installed the CLI, the first step you need to do is `login`.  This will generate a new set of [*tokens*](http://docs.kumoru.io/#tokens) for you to interface with the Kumoru service.  To get a full of list of options, you can run `kumoru` with no arugments.
 
-## Sample Application
+## About the Kumoru Sample Application
 
 Let's deploy a sample application which will show the deployment workflow, traffic rules, port access, tagging and environment variables.
 
@@ -93,7 +93,7 @@ Uuid:                 4a12ee96-809b-4295-8e12-e082bda8004d
 Certificates:         map[]
 ```
 
-Next we'll create our first application, `sample-app`, using a small image our team created ahead of time.
+Next we will create our first application, `sample-app`, using a small image our team created ahead of time.
 
 Here is some information on the options we passed:
 
