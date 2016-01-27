@@ -101,7 +101,7 @@ Checking | Kumoru is determining if the application is running and/or externally
 Running  | The application has been deployed and is available externally.
 Archiving | The archival process us underway.
 Archived | All archive actions are complete and the deployments are no longer available.
-Errored- | An error has ocurred. The relevant error message wil be included in the status.
+Errored | An error has ocurred. The relevant error message wil be included in the status.
 
 ## Logging
 
