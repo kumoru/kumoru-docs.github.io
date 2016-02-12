@@ -1,7 +1,5 @@
 # Account Management
 
-###Definition: the data representing an user
-
 Accounts are used to provide users access to the service.  The permissions structure is designed that a person only needs one account for all of Kumoru even if they are a member of multiple roles.
 
 An account is the mechanism by which you can create tokens which are then used for all future communication.

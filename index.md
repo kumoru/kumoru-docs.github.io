@@ -15,7 +15,7 @@ includes:
   - applications
   - deployments
   - faq
-
+  - glossary
 search: true
 ---
 

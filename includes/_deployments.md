@@ -1,7 +1,5 @@
 # Deployments
 
-### Definition: The immutable instantiation of an application.
-
 Deployments represent a running rule for an application. There will be a deployment for every rule specified on an application.
 
 Deployments are immutable and capture the application details at the time of their creation. This means that an application can be rolled back via the details of that deployment.

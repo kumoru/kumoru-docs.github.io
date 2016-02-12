@@ -1,7 +1,5 @@
 # Regions
 
-**Definition:** Regions are clustered resources in a cloud provider managed by the Kumoru services.
-
 All applications assigned to a given region will run with a minimum of 2 containers inside of that region.
 
 Regions are designed to be abstract and we purposly present minimal information about them.

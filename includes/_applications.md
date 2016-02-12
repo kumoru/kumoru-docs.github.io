@@ -1,7 +1,5 @@
 # Applications
 
-### Definition: information that kumoru will use to create a deployment.
-
 Applications are the primary focus of Kumoru. We expect users to interact with Kumoru primarily by creating applications and deploying them.
 
 When an application is created, it is not deployed by default. You'll need to create an initial [deployment](#deployments) to have a running application.
