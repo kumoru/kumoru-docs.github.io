@@ -33,15 +33,26 @@ kumoru accounts show user@example.com
 
 ## Errors
 
-# Roles
 
-###Definition:
-
-## Errors
 
 # Secrets
 
+<aside class="warning">Secrets are currently not being stored in a secure location during alpha.  Please do not put any sensitive information into the Kumoru service at this time.</aside>
+
+Kumoru can store various types of secrets for you that are required in your applicaton model.  Today the following sensitive information can be stored:
+
+- private SSL key
+
+Coming Soon:
+
+- credentials for private image retrevial
+- option to add environment variables as secret (e.g., database password)
+
+_Last updated February 2016_
+
+
 ###Definition:
+A secret is a sensitive piece of information that may be used by or on behalf of your application.
 
 ## Errors
 
@@ -61,7 +72,7 @@ In the future:
 
 - The private token in the pair will be encrypted and not accessible by anyone but yourself. If you lose this token are suspect it is compromised, it is recommend you remove the token and use a new one.
 
-<aside class="info">Remember: Tokens are specific to your account and should not be shared.</aside>
+<aside class="info">Reminder: Tokens are specific to your account and should not be shared.</aside>
 
 ## Create a Token
 
