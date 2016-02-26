@@ -40,7 +40,7 @@ It is intended for users to store state in another location, such as a remote da
 
 Kumoru allows users to run multiple applications on the same set of resources. Ideally users should plan their architecture around either a Service Oriented Architexture or a Microservices model. Both are accetable inside Kumoru.
 
-All publicly exposed applications are load balanced automatically. Connecting applications can be done by referncing their addresses.
+All publicly exposed applications are load balanced automatically. Connecting applications can be done by referencing their addresses.
 
 ### Cloud First
 
