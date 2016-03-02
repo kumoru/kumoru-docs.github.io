@@ -8,16 +8,16 @@ The goal of this quickstart is to create, deploy, update, and delete an applicti
 1. [Install the CLI](#kumoru-command-line-interface)
     - <https://github.com/kumoru/kumoru-cli/releases>
 1. [Create an Account](#account-management)
-    - <code>$ kumoru accounts create -f $firstName -l $lastName -p $yourPassword $emailAddress</code>
+    - <code>$ kumoru accounts create -f `Your First Name` -l `Your Last Name` `Your Email Address`</code>
 1. Request Kumoru [account activation](mailto:support@kumoru.io)
 1. [Login via CLI](#kumoru-command-line-interface)
     - <code> $ kumoru login </code>
 1. [Select Region to Deploy Application](#regions)
     - <code>$ kumoru regions list</code>
 1. [Create Application](#applications)
-    - <code>$ kumoru applications create -p 80:8080 -r green=100 -e VERSION=v1 -l $tagName $poolUUID quay.io/kumoru/sample-app $yourAppName</code>
+    - <code>$ kumoru applications create -p 80:8080 -r green=100 -e VERSION=v1 -l getting-started `Your region UUID` quay.io/kumoru/sample-app <Your App Name></code>
 1. [Deploy Application](#deployments)
-    - <code>$ kumoru applications deploy $yourAppUUID</code>
+    - <code>$ kumoru applications deploy `Your app UUID`</code>
 
 ## Kumoru Command Line Interface
 
