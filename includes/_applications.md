@@ -23,7 +23,7 @@ provider credentials | -c | A set of credentials that will be used to create res
 environment | -e | String containing a KEY=value environment variable that will be passed to the containers. You may specify multiple of these
 rule | -r  | String containing tag=weight (i.e. latest=100). You may specify multiple of these and doing so will cause multiple deployments (1 for each tag)
 port | -p | String standard docker port mapping (i.e. 80:8080 where 80 is the frontend port and 8080 is the port accessible in the container). You may specify multiple of these
-tags | -t | String to be used as an identifier. You may specify multiple of these
+labels | -l| String to be used as an identifier. You may specify multiple of these
 metadata | -m | JSON string of arbitrary metadata
 
 Concept | CLI Arguement | Description
