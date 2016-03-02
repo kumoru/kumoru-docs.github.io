@@ -15,7 +15,7 @@ The goal of this quickstart is to create, deploy, update, and delete an applicti
 1. [Select Region to Deploy Application](#regions)
     - <code>$ kumoru regions list</code>
 1. [Create Application](#applications)
-    - <code>$ kumoru applications create -p 80:8080 -r green=100 -e VERSION=v1 -t $tagName $poolUUID quay.io/kumoru/sample-app $yourAppName</code>
+    - <code>$ kumoru applications create -p 80:8080 -r green=100 -e VERSION=v1 -l $tagName $poolUUID quay.io/kumoru/sample-app $yourAppName</code>
 1. [Deploy Application](#deployments)
     - <code>$ kumoru applications deploy $yourAppUUID</code>
 
@@ -66,7 +66,7 @@ kumoru applications create \
 -p 80:8080 \
 -r green=100 \
 -e VERSION=v1 \
--t getting-started \
+-l getting-started \
 0269fc49-db71-400c-bfb5-cd5f47cc782c quay.io/kumoru/sample-app sample-app
 
 Application Details:
@@ -100,7 +100,7 @@ Here is some information on the options we passed:
 * `-p` tells Kumoru that we want to expose port `80` on the loadbalancer and connect that to port `8080` which is exposed in the container
 * `-r` tells Kumoru that we want to use the docker image tag `green` and weight the traffic at 100%
 * `-e` tells Kumoru that we want the environment variable `VERSION` available to our containers
-* `-t` tells Kumoru that we want to tag the application with `getting-started` for easier filtering in the clients
+* `-l` tells Kumoru that we want to label the application with `getting-started` for easier filtering in the clients
 * `0269fc49-db71-400c-bfb5-cd5f47cc782c` is the pool UUID that we want the application deployed into
 * `quay.io/kumoru/sample-app` is the docker image URL (without the image tag)
 * `sample-app` is the name of the application
