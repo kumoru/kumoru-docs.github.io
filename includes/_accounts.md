@@ -19,8 +19,6 @@ password | -p | Your password (OPTIONAL)
 
 <aside class="info">The Kumoru CLI will prompt you for a password by neglecting the `-p` option.</aside>
 
-### Arguments
-
 Concept | CLI Arguement | Description
 ------- | ------------- | -----------
 email | 1st | The email associated with the user

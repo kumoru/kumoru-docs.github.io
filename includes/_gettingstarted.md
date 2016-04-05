@@ -13,7 +13,7 @@ The goal of this quickstart is to create, deploy, update, and delete an applicti
 1. [Login via CLI](#kumoru-command-line-interface)
     - <code> $ kumoru login </code>
 1. [Add a Location](#locations)
-    - <code> $ kumoru locations add us-east-1
+    - <code> $ kumoru locations add us-east-1</code>
 1. [Select Location to Deploy Application](#locations)
     - <code>$ kumoru locations list</code>
 1. [Create Application](#applications)
@@ -41,6 +41,7 @@ $ kumoru login
 Generating new token.
 Enter Username:
 ```
+
 Once you have installed the CLI, the first step you need to do is `login`.  This will generate a new set of [*tokens*](http://docs.kumoru.io/#tokens) for you to interface with the Kumoru service.  To get a full of list of options, you can run `kumoru` with no arugments.
 
 ## About the Kumoru Sample Application
@@ -56,6 +57,7 @@ kumoru locations list
 
 Location   Provider  UUID                                  Status
 us-east-1  amazon    0269fc49-db71-400c-bfb5-cd5f47cc782c  running
+```
 
 Note the UUID of your location, you will need it for the next command.
 
