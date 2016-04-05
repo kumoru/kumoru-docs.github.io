@@ -1,7 +1,7 @@
 # Getting Started
 
 ## Quickstart
-The goal of this quickstart is to create, deploy, update, and delete an appliction using the Kumoru Command Line Interface.  This is intended to be a short dive into the CLI, but if you would like more information we have anchored the quickstart steps to more detailed sections in the documentation.  
+The goal of this quickstart is to create, deploy, update, and delete an appliction using the Kumoru Command Line Interface.  This is intended to be a short dive into the CLI, but if you would like more information we have anchored the quickstart steps to more detailed sections in the documentation.
 
 <aside class="warning">Please note that during Alpha release, user accounts must be manually enabled by Kumoru team.</aside>
 
@@ -12,10 +12,12 @@ The goal of this quickstart is to create, deploy, update, and delete an applicti
 1. Request Kumoru [account activation](mailto:support@kumoru.io)
 1. [Login via CLI](#kumoru-command-line-interface)
     - <code> $ kumoru login </code>
-1. [Select Region to Deploy Application](#regions)
-    - <code>$ kumoru regions list</code>
+1. [Add a Location](#locations)
+    - <code> $ kumoru locations add us-east-1
+1. [Select Location to Deploy Application](#locations)
+    - <code>$ kumoru locations list</code>
 1. [Create Application](#applications)
-    - <code>$ kumoru applications create -p 80:8080 -r green=100 -e VERSION=v1 -l getting-started `Your region UUID` quay.io/kumoru/sample-app <Your App Name></code>
+    - <code>$ kumoru applications create -p 80:8080 -r green=100 -e VERSION=v1 -l getting-started `Your location UUID` quay.io/kumoru/sample-app <Your App Name></code>
 1. [Deploy Application](#deployments)
     - <code>$ kumoru applications deploy `Your app UUID`</code>
 
@@ -36,7 +38,6 @@ There is multiple ways to install the Kumoru CLI client.  Choose the most approp
 ```shell
 $ kumoru login
 
-
 Generating new token.
 Enter Username:
 ```
@@ -48,16 +49,15 @@ Let's deploy a sample application which will show the deployment workflow, traff
 
 The following steps assume you have an active user account and a valid token.
 
-##Decide which region to deploy to:
+##Decide which location to deploy to:
 
 ```shell
-kumoru regions list
+kumoru locations list
 
-Location   Uuid                                  Status
-us-east-1  0269fc49-db71-400c-bfb5-cd5f47cc782c  running
-```
+Location   Provider  UUID                                  Status
+us-east-1  amazon    0269fc49-db71-400c-bfb5-cd5f47cc782c  running
 
-Note the UUID of your region, you will need it for the next command.
+Note the UUID of your location, you will need it for the next command.
 
 ##Create the sample application
 
@@ -70,27 +70,30 @@ kumoru applications create \
 0269fc49-db71-400c-bfb5-cd5f47cc782c quay.io/kumoru/sample-app sample-app
 
 Application Details:
+Addresses:
+CreatedAt:           Tue, 05 Apr 2016 15:00:02 CDT
+CurrentDeployments:
+DeploymentToken:     7b1dffd9-2b1d-4b8a-b91a-1343c83a81ba
+ImageURL:            quay.io/kumoru/sample-app
+Location:            Identifier: us-east-1       UUID: 0269fc49-db71-400c-bfb5-cd5f47cc782c
+Metadata:            {"labels":["getting-started"]}
+Name:                sample-app
+Ports:
+……                   80:8080
+Rules:
+……                   green=100
+SSLPorts:
+Status:              instantiating
+UpdatedAt:           Tue, 05 Apr 2016 15:00:02 CDT
+URL:
+UUID:                ced76a97-276b-4d24-bc9c-f9c33942ae8b
+Version:             v0
+Certificates:        Use "--full" to see certificates
+– PrivateKey:
 
-Addresses:            []
-CreatedAt:
-CurrentDeployments:   map[]
-Environment:          map[VERSION:v1]
-Hash:
-ImageUrl:             quay.io/kumoru/sample-app
-Location:             us-east-1
-LogToken:             45890797-48b3-47c1-bc58-2afa14674be6
-Metadata:             map[tags:[getting-started]]
-OrchestrationUrl:     http://kumoru-po-LoadBala-1E5BWBC9IWASE-1208370489.us-east-1.elb.amazonaws.com
-Name:                 sample-app
-PoolUuid:             0269fc49-db71-400c-bfb5-cd5f47cc782c
-Ports:                [80:8080]
-ProviderCredentials:  aws_access_key:aws_secret_key@aws
-Rules:                green=100
-Status:
-UpdatedAt:
-Url:
-Uuid:                 4a12ee96-809b-4295-8e12-e082bda8004d
-Certificates:         map[]
+
+Environment:
+VERSION=v1
 ```
 
 Next we will create our first application, `sample-app`, using a small image our team created ahead of time.
@@ -101,58 +104,64 @@ Here is some information on the options we passed:
 * `-r` tells Kumoru that we want to use the docker image tag `green` and weight the traffic at 100%
 * `-e` tells Kumoru that we want the environment variable `VERSION` available to our containers
 * `-l` tells Kumoru that we want to label the application with `getting-started` for easier filtering in the clients
-* `0269fc49-db71-400c-bfb5-cd5f47cc782c` is the pool UUID that we want the application deployed into
+* `0269fc49-db71-400c-bfb5-cd5f47cc782c` is the location UUID that we want the application deployed into
 * `quay.io/kumoru/sample-app` is the docker image URL (without the image tag)
 * `sample-app` is the name of the application
 
-If you get a `403 forbidden access to pool …`, make sure they UUID you used it correct.
+If you get a `403 forbidden access to location …`, make sure they UUID you used it correct.
 
 ##Deploy the sample application
 
 ```shell
-kumoru applications deploy 4a12ee96-809b-4295-8e12-e082bda8004d
-Deploying application 4a12ee96-809b-4295-8e12-e082bda8004d
+kumoru applications deploy ced76a97-276b-4d24-bc9c-f9c33942ae8b
+Deploying application ced76a97-276b-4d24-bc9c-f9c33942ae8b
 ```
 
-You can start your first deployment using the UUID of the application we just created. This will take a few moments the first time since Kumoru must 
+You can start your first deployment using the UUID of the application we just created. This will take a few moments the first time since Kumoru must
 
 1. Download the docker image
 1. Start the containers
 1. Create an ELB and wait for the ELB DNS record to resolve prior to considering the application as `running`
 
-This is the longest process when using Kumoru. Future deployments are considerably faster since Kumoru only needs to download docker image differentials.
+This is the longest process when using Kumoru. Future deployments are considerably faster since Kumoru only needs to download docker image differentials and start new containers.
 
 ##Access the sample application
 
 ```shell
-kumoru applications show 4a12ee96-809b-4295-8e12-e082bda8004d
-Application Details:
+kumoru applications show ced76a97-276b-4d24-bc9c-f9c33942ae8b
 
-Addresses:            [df30014009fe4e1f9f75d7b27d8574d1-458773757.us-east-1.elb.amazonaws.com:80]
-CreatedAt:            2016-01-04T16:57:10.490856
-CurrentDeployments:   map[green:be03fe13-a9fd-491c-bb10-9d96f513adfb]
-Environment:          map[VERSION:v1]
-Hash:                 c507b10bcaaf4fca798bfea64aa12c6474d065537d28f905b294dfec8346e11f
-ImageUrl:             quay.io/kumoru/sample-app
-Location:             us-east-1
-LogToken:             c44c38d4-440c-4ca2-8d60-a313ed62a747
-Metadata:             map[tags:[getting-started]]
-OrchestrationUrl:     http://kumoru-po-LoadBala-1E5BWBC9IWASE-1208370489.us-east-1.elb.amazonaws.com
-Name:                 sample-app
-PoolUuid:             0269fc49-db71-400c-bfb5-cd5f47cc782c 
-Ports:                [80:8080]
-ProviderCredentials:  aws_access_key:aws_secret_key@aws
-Rules:                green=100
-Status:               running
-UpdatedAt:            2016-01-04T16:57:10.490876
-Url:
-Uuid:                 4a12ee96-809b-4295-8e12-e082bda8004d
-Certificates:         map[]
+Application Details:
+Addresses:
+……                   ced76a97276b4d24bc9cf9c33942ae8b-1090232792.us-east-1.elb.amazonaws.com:80
+CreatedAt:           Tue, 05 Apr 2016 14:42:16 CDT
+CurrentDeployments:
+……                   green: 3008de98-6d6f-4647-9020-c3ac83149d15
+DeploymentToken:     b17fd92d-ae75-48d4-977b-9343362ea85f
+ImageURL:            quay.io/kumoru/sample-app
+Location:            Identifier: us-east-1	 UUID: 0269fc49-db71-400c-bfb5-cd5f47cc782c
+Metadata:            {"labels":["getting-started"]}
+Name:                sample-app
+Ports:
+……                   80:8080
+Rules:
+……                   green=100
+SSLPorts:
+Status:              running
+UpdatedAt:           Tue, 05 Apr 2016 14:50:14 CDT
+URL:                 /v1/applications/ced76a97-276b-4d24-bc9c-f9c33942ae8b
+UUID:                ced76a97-276b-4d24-bc9c-f9c33942ae8b
+Version:             v0
+Certificates:        Use "--full" to see certificates
+– PrivateKey:
+
+
+Environment:
+VERSION=v1
 ```
 
 We can access the application by leveraging the `address` associated with it. Use `kumoru application show` to see all details about a given application.
 
-You may open the address in a browser(`df30014009fe4e1f9f75d7b27d8574d1-458773757.us-east-1.elb.amazonaws.com` in my case) or curl it from the command line to see the content.
+You may open the address in a browser(`ced76a97276b4d24bc9cf9c33942ae8b-1090232792.us-east-1.elb.amazonaws.com` in my case) or curl it from the command line to see the content.
 
 ##Update the sample application
 
@@ -160,30 +169,35 @@ You may open the address in a browser(`df30014009fe4e1f9f75d7b27d8574d1-45877375
 kumoru applications patch \
 -r blue=100 \
 -e VERSION=v2 \
-4a12ee96-809b-4295-8e12-e082bda8004d
+ced76a97-276b-4d24-bc9c-f9c33942ae8
 
 Application Details:
+Addresses:
+……                   ced76a97276b4d24bc9cf9c33942ae8b-1090232792.us-east-1.elb.amazonaws.com:80
+CreatedAt:           Tue, 05 Apr 2016 14:42:16 CDT
+CurrentDeployments:
+……                   green: 3008de98-6d6f-4647-9020-c3ac83149d15
+DeploymentToken:     b17fd92d-ae75-48d4-977b-9343362ea85f
+ImageURL:            quay.io/kumoru/sample-app
+Location:            Identifier: us-east-1	 UUID: 0269fc49-db71-400c-bfb5-cd5f47cc782c
+Metadata:            {"labels":[]}
+Name:                sample-app
+Ports:
+……                   80:8080
+Rules:
+……                   blue=100
+SSLPorts:
+Status:              running
+UpdatedAt:           Tue, 05 Apr 2016 14:50:14 CDT
+URL:
+UUID:                ced76a97-276b-4d24-bc9c-f9c33942ae8b
+Version:             v0
+Certificates:        Use "--full" to see certificates
+– PrivateKey:
 
-Addresses:            [df30014009fe4e1f9f75d7b27d8574d1-458773757.us-east-1.elb.amazonaws.com:80]
-CreatedAt:            2016-01-04T16:57:10.490856
-CurrentDeployments:   map[green:be03fe13-a9fd-491c-bb10-9d96f513adfb]
-Environment:          map[VERSION:v2]
-Hash:                 c507b10bcaaf4fca798bfea64aa12c6474d065537d28f905b294dfec8346e11f
-ImageUrl:             quay.io/kumoru/sample-app
-Location:             us-east-1
-LogToken:             c44c38d4-440c-4ca2-8d60-a313ed62a747
-Metadata:             map[tags:[getting-started]]
-OrchestrationUrl:     http://kumoru-po-LoadBala-S53V9B1YFP70-916465214.us-east-1.elb.amazonaws.com
-Name:                 sample-app
-PoolUuid:             0269fc49-db71-400c-bfb5-cd5f47cc782c
-Ports:                [80:8080]
-ProviderCredentials:  aws_access_key:aws_secret_key@aws
-Rules:                blue=100
-Status:               running
-UpdatedAt:            2016-01-04T16:57:10.490876
-Url:
-Uuid:                 4a12ee96-809b-4295-8e12-e082bda8004d
-Certificates:         map[]
+
+Environment:
+VERSION=v2
 ```
 
 Change the docker image tag to `blue` and change the ENV VERSION to `v2` to show that we do indeed get an updated version of our application without downtime.
@@ -191,8 +205,8 @@ Change the docker image tag to `blue` and change the ENV VERSION to `v2` to show
 ##Deploy the changes
 
 ```shell
-kumoru applications deploy 4a12ee96-809b-4295-8e12-e082bda8004d
-Deploying application 4a12ee96-809b-4295-8e12-e082bda8004d
+kumoru applications deploy ced76a97-276b-4d24-bc9c-f9c33942ae8b
+Deploying application ced76a97-276b-4d24-bc9c-f9c33942ae8b
 ```
 
 In the last step we changed the rules for the application but hadn't yet deployed the changes. We must initiate a new deployment of the applciation for the changes to take effect.
@@ -204,8 +218,8 @@ Note that this process takes considerably less time than the initial deployment.
 ##Delete the sample application
 
 ```shell
-kumoru applications delete 4a12ee96-809b-4295-8e12-e082bda8004d
-Application 4a12ee96-809b-4295-8e12-e082bda8004d accepted for archival
+kumoru applications delete ced76a97-276b-4d24-bc9c-f9c33942ae8b
+Application ced76a97-276b-4d24-bc9c-f9c33942ae8b accepted for archival
 ```
 
 You may delete the application when ready. Deleting applications removes any resources associated with it(ELB, containers, etc) but the application data will persist in the datastore in an `archived` state.

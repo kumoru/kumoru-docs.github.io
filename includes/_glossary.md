@@ -5,6 +5,4 @@ Our intent is to make using the Kumoru service as simple as possible.  We try to
 - _Account_: data representing an user
 - _Application_: information Kumoru will use to create a deployment.
 - _Deployment_: an immutable instantiation of an application.
-- _Region_: clustered resources in a cloud provider managed by Kumoru
-
-_Last updated February 2016_
+- _Location: clustered resources in a cloud provider managed by Kumoru

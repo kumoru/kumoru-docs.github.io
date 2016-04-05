@@ -1,6 +1,6 @@
 # Deployments
 
-Deployments represent a running rule for an application. There will be a deployment for every rule specified on an application.
+Deployments represent a running rule for an application and there will one created per rule.
 
 Deployments are immutable and capture the application details at the time of their creation. This means that an application can be rolled back via the details of that deployment.
 
@@ -19,6 +19,27 @@ Deploying a new or changed application always following the same process
 1. Update the application rules if required (i.e. if a new docker tag is needed)
 1. Create a deployment.
 
-Ideally docker image building should be automated. If this is the case then most of the time the only step needed to get the new software running is to create the deployment.
+If your docker image creation is an automated process, then deploying and updated application should be as simple as causing a new deployment once that prcess has finished.
 
-## Errors
+## Deploying via webhook
+
+Applications can be deployed by a simple webhook which is ideal as a final step in a Continious Integration run. You'll need to retrieve the deployment token from the application details:
+
+```bash
+kumoru applications show
+
+$ ./kumoru applications show fbe1646b-0651-4b2b-ac75-318bb0bdf0d1
+
+Application Details:
+Addresses:
+…
+DeploymentToken:     d5c545c1-e1e4-43a7-a7c8-c97e646fbd13
+…
+```
+
+You can then perform a HTTP POST to cause the deployment if you don't have the CLI installed by leveraging the `deployment_token` query parameter:
+
+```bash
+curl -X POST https://application.kumoru.io/v1/applications/fbe1646b-0651-4b2b-ac75-318bb0bdf0d1?deployment_token=d5c545c1-e1e4-43a7-a7c8-c97e646fbd13
+```
+
