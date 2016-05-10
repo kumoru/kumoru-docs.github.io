@@ -38,25 +38,6 @@ kumoru accounts show roxy.ring@example.com
  * Min. uppercase letters: 1
  * Min. numeric: 1
 
-# Secrets
-
-<aside class="warning">Secrets are currently not being stored in a secure location during alpha.  Please do not put any sensitive information into the Kumoru service at this time.</aside>
-
-###Definition:
-A secret is a sensitive piece of information that may be used by or on behalf of your application.
-
-Today the following sensitive information can be stored:
-
-- private SSL key
-
-Coming Soon:
-
-- credentials for private image retrevial
-- option to add environment variables as secret (e.g., database password)
-
-
-## Errors
-
 # Tokens
 
 ###Definition:

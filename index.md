@@ -14,6 +14,7 @@ includes:
   - locations
   - applications
   - deployments
+  - secrets
   - faq
   - glossary
 search: true
