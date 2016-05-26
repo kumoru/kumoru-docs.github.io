@@ -40,6 +40,6 @@ DeploymentToken:     d5c545c1-e1e4-43a7-a7c8-c97e646fbd13
 You can then perform a HTTP POST to cause the deployment if you don't have the CLI installed by leveraging the `deployment_token` query parameter:
 
 ```bash
-curl -X POST https://application.kumoru.io/v1/applications/fbe1646b-0651-4b2b-ac75-318bb0bdf0d1?deployment_token=d5c545c1-e1e4-43a7-a7c8-c97e646fbd13
+curl -X POST https://application.kumoru.io/v1/applications/fbe1646b-0651-4b2b-ac75-318bb0bdf0d1/deployments/?deployment_token=d5c545c1-e1e4-43a7-a7c8-c97e646fbd13
 ```
 
