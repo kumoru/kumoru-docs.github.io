@@ -1,0 +1,948 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <link rel="icon" href="images/favicon.png" type="image/png">
+    <link rel="shortcut icon" href="images/favicon.png" type="image/png">
+    <title>Kumoru Documentation</title>
+
+    <link href="stylesheets/screen.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="stylesheets/print.css" rel="stylesheet" type="text/css" media="print" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+      <script src="javascripts/all.js" type="text/javascript"></script>
+
+      <script>
+        $(function() {
+          setupLanguages(["shell"]);
+        });
+      </script>
+  </head>
+
+  <body class="index">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="images/navbar.png" />
+      </span>
+    </a>
+    <div class="tocify-wrapper">
+    <img width="230" src="images/new-logo.png" />
+        <div class="lang-selector">
+              <a href="#" data-language-name="shell">shell</a>
+        </div>
+        <div class="search">
+          <input type="text" class="search" id="input-search" placeholder="Search">
+        </div>
+        <ul class="search-results"></ul>
+      <div id="toc">
+      </div>
+        <ul class="toc-footer">
+            <li><a href='http://github.com/tripit/slate'>Documentation Powered by Slate</a></li>
+        </ul>
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <h1 id="introduction">Introduction</h1>
+
+<p>Welcome to the Kumoru.io documentation. Kumoru is a service for making application deployment and management as simple as possible.
+The documenation on this site is intended to describe Kumoru concepts and how to consume the Kumoru service through the CLI.</p>
+
+<h2 id="libraries">Libraries</h2>
+
+<ul>
+<li><a href="https://github.com/kumoru/kumoru-sdk-go">Golang</a></li>
+</ul>
+
+<p>Please let us know if you would like to see bindings for your favorite language. The commands shown are done so with the official <a href="https://github.com/kumoru/kumoru-sdk-go/tree/master/client/kumoru">kumoru cli</a>.</p>
+
+<h2 id="customer-fit">Customer Fit</h2>
+
+<h3 id="stateless-applications">Stateless Applications</h3>
+
+<p>Kumoru was designed to run and scale applications with ease. As part of this design there is no shared state between containers. This means that any data local to a container is lost if that contianer stops for any reason, whether it&rsquo;s failure or a scaling down event. It is intended for users to store state in another location, such as a remote database, cache or queue.</p>
+
+<p>A good guide for applications that will run great in kumoru is the <a href="http://12factor.net/">12 factor app</a>.</p>
+
+<h3 id="soa-and-microservice">SOA and Microservice</h3>
+
+<p>Kumoru allows users to run multiple applications on the same set of resources. Ideally users should plan their architecture around either a Service Oriented Architexture or a Microservices model. Both are acceptable inside Kumoru.</p>
+
+<p>All publicly exposed applications are load balanced automatically. Connecting applications can be done by referencing their addresses.</p>
+
+<h3 id="cloud-first">Cloud First</h3>
+
+<p>Currently Kumoru only runs applications on AWS however additional public clouds will be allowed in the future. Applications can take full advantage of what AWS has to offer (RDS, S3, DynamoDB, etc) via environment variables.</p>
+
+          <h1 id="getting-started">Getting Started</h1>
+
+<h2 id="quickstart">Quickstart</h2>
+
+<p>The goal of this quickstart is to create, deploy, update, and delete an appliction using the Kumoru Command Line Interface.  This is intended to be a short dive into the CLI, but if you would like more information we have anchored the quickstart steps to more detailed sections in the documentation.</p>
+
+<aside class="warning">Please note that during Beta, user accounts must be manually enabled by Kumoru team.</aside>
+
+<ol>
+<li><a href="#kumoru-command-line-interface">Install the CLI</a>
+
+<ul>
+<li><a href="https://github.com/kumoru/kumoru-sdk-go/releases">https://github.com/kumoru/kumoru-sdk-go/releases</a></li>
+</ul></li>
+<li><a href="#account-management">Create an Account</a>
+
+<ul>
+<li><code>$ kumoru accounts create -f <code class="prettyprint">Your First Name</code> -l <code class="prettyprint">Your Last Name</code> <code class="prettyprint">Your Email Address</code></code></li>
+</ul></li>
+<li>Request Kumoru <a href="mailto:support@kumoru.io">account activation</a></li>
+<li><a href="#kumoru-command-line-interface">Login via CLI</a>
+
+<ul>
+<li><code> $ kumoru login </code></li>
+</ul></li>
+<li><a href="#locations">Add a Location</a>
+
+<ul>
+<li><code> $ kumoru locations add us-east-1</code></li>
+</ul></li>
+<li><a href="#locations">Select Location to Deploy Application</a>
+
+<ul>
+<li><code>$ kumoru locations list</code></li>
+</ul></li>
+<li><a href="#applications">Create Application</a>
+
+<ul>
+<li><code>$ kumoru applications create -p 80:8080 -r green=100 -e VERSION=v1 -l getting-started <code class="prettyprint">Your location UUID</code> quay.io/kumoru/sample-app <code class="prettyprint">Your App Name</code></code></li>
+</ul></li>
+<li><a href="#deployments">Deploy Application</a>
+
+<ul>
+<li><code>$ kumoru applications deploy <code class="prettyprint">Your app UUID</code></code></li>
+</ul></li>
+</ol>
+
+<h2 id="kumoru-command-line-interface">Kumoru Command Line Interface</h2>
+
+<h3 id="getting-the-kumoru-cli-client">Getting the Kumoru CLI Client</h3>
+
+<p>There is multiple ways to install the Kumoru CLI client.  Choose the most appropiate method for you:</p>
+
+<ul>
+<li>Download latest release:
+
+<ul>
+<li><a href="https://github.com/kumoru/kumoru-sdk-go/releases">https://github.com/kumoru/kumoru-sdk-go/releases</a></li>
+</ul></li>
+<li>Build from source:
+
+<ul>
+<li><a href="https://github.com/kumoru/kumoru-sdk-go/tree/master/client/kumoru">https://github.com/kumoru/kumoru-sdk-go/tree/master/client/kumoru</a></li>
+</ul></li>
+</ul>
+
+<aside class="info">If you do not have a Kumoru account, please visit the <a href="http://docs.kumoru.io/#create-an-account">Accounts</a> section of the documentation to sign up.</aside>
+
+<h3 id="basic-usage">Basic Usage</h3>
+<pre class="highlight shell"><code><span class="gp">$ </span>kumoru login
+
+Generating new token.
+Enter Username:
+</code></pre>
+
+<p>Once you have installed the CLI, the first step you need to do is <code class="prettyprint">login</code>.  This will generate a new set of <a href="http://docs.kumoru.io/#tokens"><em>tokens</em></a> for you to interface with the Kumoru service.  To get a full of list of options, you can run <code class="prettyprint">kumoru</code> with no arugments.</p>
+
+<h2 id="about-the-kumoru-sample-application">About the Kumoru Sample Application</h2>
+
+<p>Let&rsquo;s deploy a sample application which will show the deployment workflow, traffic rules, port access, tagging and environment variables.</p>
+
+<p>The following steps assume you have an active user account and a valid token.</p>
+
+<h2 id="add-a-location-if-you-don-39-t-have-one">Add a location if you don&rsquo;t have one:</h2>
+<pre class="highlight shell"><code>kumoru locations add us-east-1
+</code></pre>
+
+<h2 id="decide-which-location-to-deploy-to">Decide which location to deploy to:</h2>
+<pre class="highlight shell"><code>kumoru locations list
+
+Location   Provider  UUID                                  Status
+us-east-1  amazon    0269fc49-db71-400c-bfb5-cd5f47cc782c  running
+</code></pre>
+
+<p>Note the UUID of your location, you will need it for the next command.</p>
+
+<h2 id="create-the-sample-application">Create the sample application</h2>
+<pre class="highlight shell"><code>kumoru applications create <span class="se">\</span>
+-p 80:8080 <span class="se">\</span>
+-r <span class="nv">green</span><span class="o">=</span>100 <span class="se">\</span>
+-e <span class="nv">VERSION</span><span class="o">=</span>v1 <span class="se">\</span>
+-l getting-started <span class="se">\</span>
+0269fc49-db71-400c-bfb5-cd5f47cc782c quay.io/kumoru/sample-app sample-app
+
+Application Details:
+Addresses:
+CreatedAt:           Tue, 05 Apr 2016 15:00:02 CDT
+CurrentDeployments:
+DeploymentToken:     7b1dffd9-2b1d-4b8a-b91a-1343c83a81ba
+ImageURL:            quay.io/kumoru/sample-app
+Location:            Identifier: us-east-1       UUID: 0269fc49-db71-400c-bfb5-cd5f47cc782c
+Metadata:            <span class="o">{</span><span class="s2">"labels"</span>:[<span class="s2">"getting-started"</span><span class="o">]}</span>
+Name:                sample-app
+Ports:
+……                   80:8080
+Rules:
+……                   <span class="nv">green</span><span class="o">=</span>100
+SSLPorts:
+Status:              draft
+UpdatedAt:           Tue, 05 Apr 2016 15:00:02 CDT
+URL:
+UUID:                ced76a97-276b-4d24-bc9c-f9c33942ae8b
+Version:             v0
+Certificates:        Use <span class="s2">"--full"</span> to see certificates
+– PrivateKey:
+
+
+Environment:
+<span class="nv">VERSION</span><span class="o">=</span>v1
+</code></pre>
+
+<p>Next we will create our first application, <code class="prettyprint">sample-app</code>, using a small image our team created ahead of time.</p>
+
+<p>Here is some information on the options we passed:</p>
+
+<ul>
+<li><code class="prettyprint">-p</code> tells Kumoru that we want to expose port <code class="prettyprint">80</code> on the loadbalancer and connect that to port <code class="prettyprint">8080</code> which is exposed in the container</li>
+<li><code class="prettyprint">-r</code> tells Kumoru that we want to use the docker image tag <code class="prettyprint">green</code> and weight the traffic at 100%</li>
+<li><code class="prettyprint">-e</code> tells Kumoru that we want the environment variable <code class="prettyprint">VERSION</code> available to our containers</li>
+<li><code class="prettyprint">-l</code> tells Kumoru that we want to label the application with <code class="prettyprint">getting-started</code> for easier filtering in the clients</li>
+<li><code class="prettyprint">0269fc49-db71-400c-bfb5-cd5f47cc782c</code> is the location UUID that we want the application deployed into</li>
+<li><code class="prettyprint">quay.io/kumoru/sample-app</code> is the docker image URL (without the image tag)</li>
+<li><code class="prettyprint">sample-app</code> is the name of the application</li>
+</ul>
+
+<p>If you get a <code class="prettyprint">403 forbidden access to location …</code>, make sure they UUID you used it correct.</p>
+
+<h2 id="deploy-the-sample-application">Deploy the sample application</h2>
+<pre class="highlight shell"><code>kumoru applications deploy ced76a97-276b-4d24-bc9c-f9c33942ae8b
+
+Deploying application ced76a97-276b-4d24-bc9c-f9c33942ae8b
+</code></pre>
+
+<p>You can start your first deployment using the UUID of the application we just created. This will take a few moments the first time since Kumoru must</p>
+
+<ol>
+<li>Download the docker image</li>
+<li>Start the containers</li>
+<li>Create an ELB and wait for the ELB DNS record to resolve prior to considering the application as <code class="prettyprint">running</code></li>
+</ol>
+
+<p>This is the longest process when using Kumoru. Future deployments are considerably faster since Kumoru only needs to download docker image differentials and start new containers.</p>
+
+<h2 id="access-the-sample-application">Access the sample application</h2>
+<pre class="highlight shell"><code>kumoru applications show ced76a97-276b-4d24-bc9c-f9c33942ae8b
+
+Application Details:
+Addresses:
+……                   ced76a97276b4d24bc9cf9c33942ae8b-1090232792.us-east-1.elb.amazonaws.com:80
+CreatedAt:           Tue, 05 Apr 2016 14:42:16 CDT
+CurrentDeployments:
+……                   green: 3008de98-6d6f-4647-9020-c3ac83149d15
+DeploymentToken:     b17fd92d-ae75-48d4-977b-9343362ea85f
+ImageURL:            quay.io/kumoru/sample-app
+Location:            Identifier: us-east-1   UUID: 0269fc49-db71-400c-bfb5-cd5f47cc782c
+Metadata:            <span class="o">{</span><span class="s2">"labels"</span>:[<span class="s2">"getting-started"</span><span class="o">]}</span>
+Name:                sample-app
+Ports:
+……                   80:8080
+Rules:
+……                   <span class="nv">green</span><span class="o">=</span>100
+SSLPorts:
+Status:              running
+UpdatedAt:           Tue, 05 Apr 2016 14:50:14 CDT
+URL:                 /v1/applications/ced76a97-276b-4d24-bc9c-f9c33942ae8b
+UUID:                ced76a97-276b-4d24-bc9c-f9c33942ae8b
+Version:             v0
+Certificates:        Use <span class="s2">"--full"</span> to see certificates
+– PrivateKey:
+
+
+Environment:
+<span class="nv">VERSION</span><span class="o">=</span>v1
+</code></pre>
+
+<p>We can access the application by leveraging the <code class="prettyprint">address</code> associated with it. Use <code class="prettyprint">kumoru application show</code> to see all details about a given application.</p>
+
+<p>You may open the address in a browser(<code class="prettyprint">ced76a97276b4d24bc9cf9c33942ae8b-1090232792.us-east-1.elb.amazonaws.com</code> in my case) or curl it from the command line to see the content.</p>
+
+<h2 id="update-the-sample-application">Update the sample application</h2>
+<pre class="highlight shell"><code>kumoru applications patch <span class="se">\</span>
+-r <span class="nv">blue</span><span class="o">=</span>100 <span class="se">\</span>
+-e <span class="nv">VERSION</span><span class="o">=</span>v2 <span class="se">\</span>
+ced76a97-276b-4d24-bc9c-f9c33942ae8
+
+Application Details:
+Addresses:
+……                   ced76a97276b4d24bc9cf9c33942ae8b-1090232792.us-east-1.elb.amazonaws.com:80
+CreatedAt:           Tue, 05 Apr 2016 14:42:16 CDT
+CurrentDeployments:
+……                   green: 3008de98-6d6f-4647-9020-c3ac83149d15
+DeploymentToken:     b17fd92d-ae75-48d4-977b-9343362ea85f
+ImageURL:            quay.io/kumoru/sample-app
+Location:            Identifier: us-east-1   UUID: 0269fc49-db71-400c-bfb5-cd5f47cc782c
+Metadata:            <span class="o">{</span><span class="s2">"labels"</span>:[]<span class="o">}</span>
+Name:                sample-app
+Ports:
+……                   80:8080
+Rules:
+……                   <span class="nv">blue</span><span class="o">=</span>100
+SSLPorts:
+Status:              running
+UpdatedAt:           Tue, 05 Apr 2016 14:50:14 CDT
+URL:
+UUID:                ced76a97-276b-4d24-bc9c-f9c33942ae8b
+Version:             v0
+Certificates:        Use <span class="s2">"--full"</span> to see certificates
+– PrivateKey:
+
+
+Environment:
+<span class="nv">VERSION</span><span class="o">=</span>v2
+</code></pre>
+
+<p>Change the docker image tag to <code class="prettyprint">blue</code> and change the ENV VERSION to <code class="prettyprint">v2</code> to show that we do indeed get an updated version of our application without downtime.</p>
+
+<h2 id="deploy-the-changes">Deploy the changes</h2>
+<pre class="highlight shell"><code>kumoru applications deploy ced76a97-276b-4d24-bc9c-f9c33942ae8b
+Deploying application ced76a97-276b-4d24-bc9c-f9c33942ae8b
+</code></pre>
+
+<p>In the last step we changed the rules for the application but hadn&rsquo;t yet deployed the changes. We must initiate a new deployment of the applciation for the changes to take effect.</p>
+
+<p>Refresh the page in the browser or curl the address again to see the new content. You may need to force refresh your browser to clean the cache.</p>
+
+<p>Note that this process takes considerably less time than the initial deployment.</p>
+
+<h2 id="archive-the-sample-application">Archive the sample application</h2>
+<pre class="highlight shell"><code>kumoru applications archive ced76a97-276b-4d24-bc9c-f9c33942ae8b
+Application ced76a97-276b-4d24-bc9c-f9c33942ae8b accepted <span class="k">for </span>archival
+</code></pre>
+
+<p>You may delete the application when ready. Deleting applications removes any resources associated with it (ELB, containers, etc) but the application data will persist in the datastore in an <code class="prettyprint">archived</code> state.</p>
+
+          <h1 id="accessing-kumoru">Accessing Kumoru</h1>
+
+<h2 id="cli">CLI</h2>
+
+<p>There is two methods for installing the CLI:</p>
+
+<ul>
+<li><p>Download latest binary release:</p>
+
+<ul>
+<li><a href="https://github.com/kumoru/kumoru-sdk-go/releases">https://github.com/kumoru/kumoru-sdk-go/releases</a></li>
+</ul></li>
+<li><p>Build from source:</p>
+
+<ul>
+<li><a href="https://github.com/kumoru/kumoru-sdk-go/tree/master/client/kumoru">https://github.com/kumoru/kumoru-sdk-go/tree/master/client/kumoru</a></li>
+</ul></li>
+</ul>
+
+<aside class="info">If using binary release, remember to make it executable <b><i>&ldquo;chmod +x /path/to/kumoru/binary&rdquo;</b></i></aside>
+
+          <h1 id="account-management">Account Management</h1>
+
+<p>Accounts are used to provide users access to the service.  The permissions structure is designed that a person only needs one Kumoru account. This account can be a member of multiple roles, even across organization.</p>
+
+<p>An account is required to create a pair of tokens which are then used for all future communication.</p>
+
+<h2 id="create-an-account">Create an Account</h2>
+<pre class="highlight shell"><code>kumoru accounts create -f Roxy -l Ring roxy.ring@example.com
+</code></pre>
+
+<h3 id="options">Options</h3>
+
+<table><thead>
+<tr>
+<th>Concept</th>
+<th>CLI option</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>given name</td>
+<td>-f</td>
+<td>Your first name</td>
+</tr>
+<tr>
+<td>surname</td>
+<td>-l</td>
+<td>Your last name</td>
+</tr>
+<tr>
+<td>password</td>
+<td>-p</td>
+<td>Your password (OPTIONAL)</td>
+</tr>
+</tbody></table>
+
+<aside class="info">The Kumoru CLI will prompt you for a password by neglecting the `-p` option.</aside>
+
+<table><thead>
+<tr>
+<th>Concept</th>
+<th>CLI Arguement</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>email</td>
+<td>1st</td>
+<td>The email associated with the user</td>
+</tr>
+</tbody></table>
+
+<h2 id="show-an-account">Show an Account</h2>
+<pre class="highlight shell"><code>kumoru accounts show roxy.ring@example.com
+</code></pre>
+
+<h2 id="errors">Errors</h2>
+
+<ul>
+<li>Password validation errors will be raised if the supplied password doesn&rsquo;t meet the following characteristics:
+
+<ul>
+<li>Min. Length: 8</li>
+<li>Max. Length: 100</li>
+<li>Min. lowercase letters: 1</li>
+<li>Min. uppercase letters: 1</li>
+<li>Min. numeric: 1</li>
+</ul></li>
+</ul>
+
+<h1 id="tokens">Tokens</h1>
+
+<h3 id="definition">Definition:</h3>
+
+<p>A set of UUIDs, one public and one private, that is used to sign all requests to the Kumoru APIs.</p>
+
+<p>All HTTP requests to Kumoru.io services must be cryptographically signed. The Kumoru APIs follow the <a href="http://tools.ietf.org/html/draft-cavage-http-signatures-05">Internet Draft</a> which describes message signing.</p>
+
+<p>An example of generating a signing string and signing a request can be found in our <a href="https://github.com/kumoru/kumoru-sdk-go/blob/master/pkg/kumoru/kumoru.go#L382">SDK</a>.</p>
+
+<aside class="warning">cURL isn&rsquo;t available to interact with the APIs due to the requirement that all requests be signed.</aside>
+
+<p>As of April 2016:
+- You can have as many tokens as you like and tokens do not expire.
+- Both UUIDs are generated by the authorization API.</p>
+
+<aside class="info">Reminder: Tokens are specific to your account and should not be shared.</aside>
+
+<h2 id="create-a-token">Create a Token</h2>
+<pre class="highlight shell"><code>kumoru tokens create
+
+Generating new token.
+Enter Username: roxy.ring@example.com
+Enter Password:
+</code></pre>
+
+<table><thead>
+<tr>
+<th>Concept</th>
+<th>CLI Option</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>force</td>
+<td>&ndash;force</td>
+<td>overwrite config file even it exists</td>
+</tr>
+<tr>
+<td>don&rsquo;t save</td>
+<td>-d</td>
+<td>Print tokens to screen instead of writing to file</td>
+</tr>
+</tbody></table>
+
+<h2 id="delete-a-token">Delete a Token</h2>
+
+<p><strong>Not implemented</strong></p>
+
+          <h1 id="locations">Locations</h1>
+
+<p>All applications assigned to a given location will run with a minimum of 2 containers, on a minimum of 2 servers in different availablity zones.</p>
+
+<p>Locations are designed to be abstract and we purposly present minimal information about them.</p>
+
+<ul>
+<li><p>The amount of resources (CPU, RAM, Disk, Network) are static for all locations in the Alpha phase.</p>
+
+<ul>
+<li>CPU: 2 x 1 vCPU</li>
+<li>RAM: 2 x 3.75GiB</li>
+<li>Disk: 2 x 40GB (General Purpose 2)</li>
+</ul></li>
+<li><p>There is no guarantee that all containers for a given application will run on different servers. There is a guarantee of containers being re-scheduled elsewhere if a server goes offline for any reason.</p></li>
+</ul>
+
+<h2 id="location-security">Location Security</h2>
+
+<ul>
+<li>Port Access to restricted to your applications in a Location. Only ports specified on an application are allowed via the loadbalancer.</li>
+<li>SSH keys are the only form of remote access to the servers. Passwords are disabled.</li>
+<li>Members run a recent version of the CoreOS operating system and are configured to be part of the &lsquo;stable&rsquo; channel.</li>
+<li>Due to the need for intra-cluster communication, port access is not restricted between servers in a location.</li>
+</ul>
+
+<h2 id="available-locations">Available Locations</h2>
+
+<p>We support the following provider/region combinations:</p>
+
+<ul>
+<li>Amazon Web Services
+
+<ul>
+<li>us-east-1 - US East (N. Virginia)</li>
+</ul></li>
+<li>Amazon Web Services (coming soon)
+
+<ul>
+<li>us-west-1 - US West (N. California)</li>
+<li>us-west-2 - US West (Oregon)</li>
+<li>eu-west-1 - EU (Ireland)</li>
+<li>eu-central-1 EU (Frankfort)</li>
+<li>ap-southeast-1 - Asia Pacific (Singapore)</li>
+<li>ap-southeast-2 - Asia Pacific (Sydney)</li>
+<li>ap-northeast-1 - Asia Pacific (Tokyo)</li>
+<li>ap-northeast-2 - Asia Pacific (Seoul)</li>
+<li>sa-east-1 - South America (Sao Paulo)</li>
+</ul></li>
+<li>Google Compute Engine</li>
+<li>Microsoft Azure</li>
+<li>Digital Ocean</li>
+<li>Rackspace Cloud</li>
+</ul>
+
+<h3 id="cli-parameters">CLI Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Concept</th>
+<th>CLI Argument</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>identifier</td>
+<td>1st</td>
+<td>The provider specific region identifier (i.e. us-east-1 for amazo for Amazon)</td>
+</tr>
+</tbody></table>
+
+<h2 id="add-a-location">Add a Location</h2>
+<pre class="highlight shell"><code>kumoru locations add IDENTIFIER
+…
+</code></pre>
+
+<h2 id="get-all-locations">Get all Locations</h2>
+<pre class="highlight shell"><code>kumoru locations list
+…
+</code></pre>
+
+<h2 id="archive-a-location">Archive a Location</h2>
+<pre class="highlight shell"><code>kumoru locations archive IDENTIFIER
+…
+</code></pre>
+
+<p>Archive location</p>
+
+          <h1 id="applications">Applications</h1>
+
+<p>We expect users to interact with Kumoru primarily by creating applications and deploying them.</p>
+
+<p>When an application is created, it is <strong>not</strong> deployed by default. You&rsquo;ll need to create an initial <a href="#deployments">deployment</a> to have a running application.</p>
+
+<h2 id="create-an-application">Create an Application</h2>
+<pre class="highlight shell"><code>kumoru applications create <span class="o">[</span>OPTIONS] LOCATION_UUID IMG_URL APP_NAME
+
+</code></pre>
+
+<h3 id="cli">CLI</h3>
+
+<table><thead>
+<tr>
+<th>Concept</th>
+<th>CLI Option</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>certificate</td>
+<td>--certificate</td>
+<td>The path to a PEM encoded SSL certificate. Setting this on an application will enable SSL on all Ports</td>
+</tr>
+<tr>
+<td>certificate chain</td>
+<td>--certificate_chain</td>
+<td>The path to a PEM encoded certificate chain. (optional)</td>
+</tr>
+<tr>
+<td>environment file</td>
+<td>--env_file</td>
+<td>File containing environment variables</td>
+</tr>
+<tr>
+<td>private key</td>
+<td>--private_key</td>
+<td>The path to a PEM encoded private key tied to the certificate. Required if used &ndash;certificate</td>
+</tr>
+<tr>
+<td>SSL port</td>
+<td>-ssl_port</td>
+<td>Port tied to SSL certificate. See <code class="prettyprint">-p</code> for details.</td>
+</tr>
+<tr>
+<td>environment</td>
+<td>-e</td>
+<td>String containing a KEY=value environment variable that will be passed to the containers. You may specify multiple of these</td>
+</tr>
+<tr>
+<td>rule</td>
+<td>-r</td>
+<td>String containing tag=weight (i.e. latest=100). You may specify multiple of these and doing so will cause multiple deployments (1 for each tag)</td>
+</tr>
+<tr>
+<td>port</td>
+<td>-p</td>
+<td>String standard docker port mapping (i.e. 80:8080 where 80 is the frontend port and 8080 is the port accessible in the container). You may specify multiple of these</td>
+</tr>
+<tr>
+<td>labels</td>
+<td>-l</td>
+<td>String to be used as an identifier. You may specify multiple of these</td>
+</tr>
+<tr>
+<td>metadata</td>
+<td>-m</td>
+<td>JSON string of arbitrary metadata</td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th>Concept</th>
+<th>CLI Arguement</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>location uuid</td>
+<td>1st</td>
+<td>The UUID of the location the application is to be deployed in.</td>
+</tr>
+<tr>
+<td>image url</td>
+<td>2nd</td>
+<td>The url of the docker image. See below for acceptable urls.</td>
+</tr>
+<tr>
+<td>application name</td>
+<td>3rd</td>
+<td>The name of the application.</td>
+</tr>
+</tbody></table>
+
+<p>The following types of image urls are acceptable and may be transformed:</p>
+
+<table><thead>
+<tr>
+<th>Input</th>
+<th>Transformation</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>image</td>
+<td>registry.hub.docker.com/library/image</td>
+</tr>
+<tr>
+<td>username/image</td>
+<td>registry.hub.docker.com/username/image</td>
+</tr>
+<tr>
+<td>myregistry.com/username/image</td>
+<td>myregistry.com/username/image</td>
+</tr>
+<tr>
+<td>user:password@myregistry.com/username/image</td>
+<td>Private image</td>
+</tr>
+</tbody></table>
+
+<ul>
+<li>If you are familiar with Docker you may notice there is no image tag listed in the <code class="prettyprint">IMG_URL</code>. These are provided via the <code class="prettyprint">rules</code> flag.</li>
+</ul>
+
+<aside class="warning">Kumoru uses the Docker registry v1 API to retrieve a list of tags for an image. We then use this tag to create a deployment and this tag will be pulled down any time an application container starts. Unfortunately this means that if you have an tag that gets updated after creation, our service will automatically pull it down when a container starts. This means you could have mutliple versions of an tag running at the same time. The solution is to either a) never change a tag once it&rsquo;s created or b) always create a deployment immediately after updating your tag.</aside>
+
+<h2 id="get-an-application">Get an Application</h2>
+<pre class="highlight shell"><code>kumoru applications show APPLICATION_UUID
+…
+</code></pre>
+
+<p>Returns all details of a given application.</p>
+
+<h2 id="get-all-applications">Get all Applications</h2>
+<pre class="highlight shell"><code>kumoru applications list
+…
+</code></pre>
+
+<p>Displays a list of all applications with minimal details.</p>
+
+<h2 id="update-an-application">Update an Application</h2>
+<pre class="highlight shell"><code>kumoru applications patch <span class="o">[</span>OPTIONS] APPLICATION_UUID
+…
+</code></pre>
+
+<p>Update a particular application parameter. </p>
+
+<ul>
+<li>If you are changing the environment variables, you must pass all environment variables including any that were not changed.</li>
+</ul>
+
+<p>See <a href="#create-an-application">Create an application</a> for available options.</p>
+
+<p>You must <a href="#create-a-deployment">create a deployment</a> for the changes to take effect after performing an update.</p>
+
+<h2 id="delete-an-application">Delete an Application</h2>
+<pre class="highlight shell"><code>kumoru applications delete APPLICATION_UUID
+</code></pre>
+
+<p>Deleting an application will remove all running containers and any loadbalancers associated with the application.</p>
+
+<h2 id="application-security">Application Security</h2>
+
+<ul>
+<li>External ingress traffic is only allowed to applications via their load balancer and only on the port specified. If no port is specified, external ingress traffic is not allowed.</li>
+<li>Access to the instances running the application containers is isolated to the Kumoru support team.</li>
+</ul>
+
+<h2 id="statuses">Statuses</h2>
+
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>draft</td>
+<td>The application has been created but not yet deployed.</td>
+</tr>
+<tr>
+<td>deploying</td>
+<td>A deployment action has been started.</td>
+</tr>
+<tr>
+<td>checking</td>
+<td>Kumoru is determining if the application is running and/or externally available.</td>
+</tr>
+<tr>
+<td>running</td>
+<td>The application has been deployed and is available externally.</td>
+</tr>
+<tr>
+<td>archiving</td>
+<td>The archival process us underway.</td>
+</tr>
+<tr>
+<td>archived</td>
+<td>All archive actions are complete and the deployments are no longer available.</td>
+</tr>
+<tr>
+<td>errored</td>
+<td>An error has ocurred.</td>
+</tr>
+</tbody></table>
+
+<h2 id="logging">Logging</h2>
+
+<p>To see any logs generated by your application you must configure it to send them to a remote service. This can be done by using a logging library in your code or if your container image has an opterating system configuring a logging service (i.e.syslog) to forward logs to a remote service.</p>
+
+          <h1 id="deployments">Deployments</h1>
+
+<p>Deployments represent a running rule for an application and there will one created per rule.</p>
+
+<p>Deployments are immutable and capture the application details at the time of their creation. This means that an application can be rolled back via the details of that deployment.</p>
+
+<p>When an application is deployed, Kumoru will attempt to figure out if any changes have been made (i.e. a new docker image hash, change environment variables, etc). If no changes are present, no actions are taken.</p>
+
+<h2 id="create-a-deployment">Create a deployment</h2>
+<pre class="highlight shell"><code>kumoru applications deploy APPLICATION_UUID
+…
+</code></pre>
+
+<p>Deploying a new or changed application always following the same process</p>
+
+<ol>
+<li>Commit code and create a new docker image.</li>
+<li>Update the application rules if required (i.e. if a new docker tag is needed)</li>
+<li>Create a deployment.</li>
+</ol>
+
+<p>If your docker image creation is an automated process, then deploying and updated application should be as simple as causing a new deployment once the image is built.</p>
+
+<h2 id="deploying-via-webhook">Deploying via webhook</h2>
+
+<p>Applications can be deployed by a simple webhook which is ideal as a final step in a Continious Integration run. You&rsquo;ll need to retrieve the deployment token from the application details:</p>
+<pre class="highlight shell"><code>kumoru applications show
+
+<span class="gp">$ </span>./kumoru applications show fbe1646b-0651-4b2b-ac75-318bb0bdf0d1
+
+Application Details:
+Addresses:
+…
+DeploymentToken:     d5c545c1-e1e4-43a7-a7c8-c97e646fbd13
+…
+</code></pre>
+
+<p>You can then perform a HTTP POST to cause the deployment if you don&rsquo;t have the CLI installed by leveraging the <code class="prettyprint">deployment_token</code> query parameter:</p>
+<pre class="highlight shell"><code>curl -X POST https://application.kumoru.io/v1/applications/fbe1646b-0651-4b2b-ac75-318bb0bdf0d1/deployments/?deployment_token<span class="o">=</span>d5c545c1-e1e4-43a7-a7c8-c97e646fbd13
+</code></pre>
+
+<p><strong>Note:</strong> your application UUID and deployment_token will be different for all applications</p>
+
+          <h1 id="secrets">Secrets</h1>
+
+<h3 id="definition">Definition:</h3>
+
+<p>A secret is a sensitive piece of information that may be used by or on behalf of your application. Values are currently limited to <strong>strings</strong>.</p>
+
+<p>As of May 2016 the <code class="prettyprint">value</code> of a secret are stored encrypted via Rackspace <a href="https://developer.rackspace.com/docs/cloud-keep/v1/developer-guide/#document-getting-started">Cloudkeep</a>.</p>
+
+<p>Today the following sensitive information are stored on your behalf:</p>
+
+<ul>
+<li>private SSL key</li>
+</ul>
+
+<p>Coming Soon:</p>
+
+<ul>
+<li>reference secrets for:
+
+<ul>
+<li>pull credentials for private docker images</li>
+<li>private SSL keys</li>
+<li>environment variables (e.g., database password)</li>
+</ul></li>
+</ul>
+
+<h2 id="create-a-secret">Create a Secret</h2>
+<pre class="highlight shell"><code>kumoru secrets create -l mysql_password mySecurePassword123
+
+Secret Details:
+
+CreatedAt:  Sun, 31 Dec 0000 18:00:00 CST
+Labels:     <span class="o">[</span>mysql_password]
+UpdatedAt:  Sun, 31 Dec 0000 18:00:00 CST
+Uuid:       19085c5b-8898-4268-9685-60e328c3a6e4
+Value:      mySecurePassword123
+</code></pre>
+
+<table><thead>
+<tr>
+<th>Concept</th>
+<th>CLI Option</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>labels</td>
+<td>-l</td>
+<td>Descriptive labels that may be attached to a secret.</td>
+</tr>
+</tbody></table>
+
+<h2 id="delete-a-secret">Delete a Secret</h2>
+
+<p><strong>Not Implemented</strong></p>
+
+<h2 id="list-secrets">List Secrets</h2>
+<pre class="highlight shell"><code>kumoru secrets list
+
+UUID                                  Created At                     Labels
+19085c5b-8898-4268-9685-60e328c3a6e4  Sun, 31 Dec 0000 18:00:00 CST  <span class="o">[</span>mysql_password]
+…
+</code></pre>
+
+<p>Lists all available secrets. The values are purposely not displayed. Use <code class="prettyprint">kumoru show secret UUID</code> to display the value.</p>
+
+<h2 id="show-a-secret">Show a Secret</h2>
+<pre class="highlight shell"><code>kumoru secrets show 19085c5b-8898-4268-9685-60e328c3a6e4
+
+Secret Details:
+
+CreatedAt:  Sun, 31 Dec 0000 18:00:00 CST
+Labels:     <span class="o">[</span>mysql_password]
+UpdatedAt:  Sun, 31 Dec 0000 18:00:00 CST
+Uuid:       19085c5b-8898-4268-9685-60e328c3a6e4
+Value:      mySecurePassword123
+</code></pre>
+
+<p>Displays all details about a secret including the value.</p>
+
+          <h1 id="faq">FAQ</h1>
+
+<h3 id="why-can-39-t-stateful-applications-deployed-in-kumoru-io">Why can&rsquo;t stateful applications deployed in Kumoru.io?</h3>
+
+<p>Technically, they can. However there is no gaurantee of state for a given container or between containers.
+This means that if you were to deploy a mysql image, there would be two running containers of mysql with no
+shared data between them. If there is a failure, a new container will be scheduled and will not have any data from the failed container.</p>
+
+<p>These restrictions are forced because we view infrastructure as needing separate scaling mechanisms. Databases require a very different approach to scaling than an API service and should be treated as such.</p>
+
+<p>We expect users to leverage remote resources for state. This means you can consume a cloud service (i.e. RDS) or run your own service (i.e. mysql on EC2). Both can be accessed by your service via Environment Variables.</p>
+
+<h3 id="do-you-dogfood-your-service">Do you dogfood your service?</h3>
+
+<p>I&rsquo;m glad you asked. The answer is yes. We are our first customer!</p>
+
+<p>The APIs you interact with when consuming kumoru.io are all hosted via Kumoru.io.</p>
+
+<h3 id="can-you-explain-deployments-and-applications-better">Can you explain deployments and applications better?</h3>
+
+<p>Applications are simply the instructions for deployments. When an application is created, we&rsquo;ve really just saved the rules for future deployments which is why a deployment is required to get the application running.</p>
+
+<p>Deployments on the otherhand represent the running point in time of an application. As such, deployments are immutable. This has the following side effects:</p>
+
+<ol>
+<li>Details about a application at a specific point in time are stored forever as a deployment and can be retrieved later to see how an application has changed.</li>
+<li>Deployments can be used to rollback an application to the state when they were created.</li>
+</ol>
+
+<p>The vast majority of actions an user will take on kumoru is deploying applications. After the initial deployment, deploying updates is a very quick process (depending on docker image size).</p>
+
+          <h1 id="glossary">Glossary</h1>
+
+<p>Our intent is to make using the Kumoru service as simple as possible.  We try to use generic technology terms that one would already be familiar with, but we can&rsquo;t meet everyone&rsquo;s expectations or experience.  Using the following definitions will help you understand how to navigate the Kumoru experience.</p>
+
+<ul>
+<li><em>Account</em>: data representing an user</li>
+<li><em>Application</em>: information Kumoru will use to create a deployment.</li>
+<li><em>Deployment</em>: an immutable instantiation of an application.</li>
+<li><em>Token</em>: a set of two peices of information, one public and one private, that are used to sign all requests to the Kumoru APIs.</li>
+<li><em>Location</em>: clustered resources in a cloud provider managed by Kumoru where deployments run.</li>
+</ul>
+
+      </div>
+      <div class="dark-box">
+          <div class="lang-selector">
+                <a href="#" data-language-name="shell">shell</a>
+          </div>
+      </div>
+    </div>
+  </body>
+</html>
