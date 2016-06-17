@@ -3,10 +3,10 @@
 ## Quickstart
 The goal of this quickstart is to create, deploy, update, and delete an appliction using the Kumoru Command Line Interface.  This is intended to be a short dive into the CLI, but if you would like more information we have anchored the quickstart steps to more detailed sections in the documentation.
 
-<aside class="warning">Please note that during Alpha release, user accounts must be manually enabled by Kumoru team.</aside>
+<aside class="warning">Please note that during Beta, user accounts must be manually enabled by Kumoru team.</aside>
 
 1. [Install the CLI](#kumoru-command-line-interface)
-    - <https://github.com/kumoru/kumoru-cli/releases>
+    - <https://github.com/kumoru/kumoru-sdk-go/releases>
 1. [Create an Account](#account-management)
     - <code>$ kumoru accounts create -f `Your First Name` -l `Your Last Name` `Your Email Address`</code>
 1. Request Kumoru [account activation](mailto:support@kumoru.io)
@@ -17,7 +17,7 @@ The goal of this quickstart is to create, deploy, update, and delete an applicti
 1. [Select Location to Deploy Application](#locations)
     - <code>$ kumoru locations list</code>
 1. [Create Application](#applications)
-    - <code>$ kumoru applications create -p 80:8080 -r green=100 -e VERSION=v1 -l getting-started `Your location UUID` quay.io/kumoru/sample-app <Your App Name></code>
+    - <code>$ kumoru applications create -p 80:8080 -r green=100 -e VERSION=v1 -l getting-started `Your location UUID` quay.io/kumoru/sample-app `Your App Name`</code>
 1. [Deploy Application](#deployments)
     - <code>$ kumoru applications deploy `Your app UUID`</code>
 
@@ -27,9 +27,9 @@ The goal of this quickstart is to create, deploy, update, and delete an applicti
 There is multiple ways to install the Kumoru CLI client.  Choose the most appropiate method for you:
 
 - Download latest release:
-    - <https://github.com/kumoru/kumoru-cli/releases>
+    - <https://github.com/kumoru/kumoru-sdk-go/releases>
 - Build from source:
-    - <https://github.com/kumoru/kumoru-cli>
+    - <https://github.com/kumoru/kumoru-sdk-go/tree/master/client/kumoru>
 
 <aside class="info">If you do not have a Kumoru account, please visit the <a href="http://docs.kumoru.io/#create-an-account">Accounts</a> section of the documentation to sign up.</aside>
 
@@ -44,11 +44,18 @@ Enter Username:
 
 Once you have installed the CLI, the first step you need to do is `login`.  This will generate a new set of [*tokens*](http://docs.kumoru.io/#tokens) for you to interface with the Kumoru service.  To get a full of list of options, you can run `kumoru` with no arugments.
 
-## About the Kumoru Sample Application
+##About the Kumoru Sample Application
 
 Let's deploy a sample application which will show the deployment workflow, traffic rules, port access, tagging and environment variables.
 
 The following steps assume you have an active user account and a valid token.
+
+
+##Add a location if you don't have one:
+```shell
+kumoru locations add us-east-1
+```
+
 
 ##Decide which location to deploy to:
 
@@ -85,7 +92,7 @@ Ports:
 Rules:
 ……                   green=100
 SSLPorts:
-Status:              instantiating
+Status:              draft
 UpdatedAt:           Tue, 05 Apr 2016 15:00:02 CDT
 URL:
 UUID:                ced76a97-276b-4d24-bc9c-f9c33942ae8b
@@ -116,6 +123,7 @@ If you get a `403 forbidden access to location …`, make sure they UUID you use
 
 ```shell
 kumoru applications deploy ced76a97-276b-4d24-bc9c-f9c33942ae8b
+
 Deploying application ced76a97-276b-4d24-bc9c-f9c33942ae8b
 ```
 
@@ -217,11 +225,11 @@ Refresh the page in the browser or curl the address again to see the new content
 
 Note that this process takes considerably less time than the initial deployment.
 
-##Delete the sample application
+##Archive the sample application
 
 ```shell
-kumoru applications delete ced76a97-276b-4d24-bc9c-f9c33942ae8b
+kumoru applications archive ced76a97-276b-4d24-bc9c-f9c33942ae8b
 Application ced76a97-276b-4d24-bc9c-f9c33942ae8b accepted for archival
 ```
 
-You may delete the application when ready. Deleting applications removes any resources associated with it(ELB, containers, etc) but the application data will persist in the datastore in an `archived` state.
+You may delete the application when ready. Deleting applications removes any resources associated with it (ELB, containers, etc) but the application data will persist in the datastore in an `archived` state.

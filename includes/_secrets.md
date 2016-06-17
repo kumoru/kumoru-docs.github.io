@@ -8,7 +8,6 @@ As of May 2016 the `value` of a secret are stored encrypted via Rackspace [Cloud
 Today the following sensitive information are stored on your behalf:
 
 - private SSL key
-- private half of your token pair
 
 Coming Soon:
 
@@ -49,7 +48,7 @@ UUID                                  Created At                     Labels
 …
 ```
 
-Lists all available secrets. The values are purposely not displayed. Use `kumoru show secret UUID` to deplay the value.
+Lists all available secrets. The values are purposely not displayed. Use `kumoru show secret UUID` to display the value.
 
 ## Show a Secret
 

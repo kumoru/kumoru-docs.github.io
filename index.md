@@ -27,9 +27,9 @@ The documenation on this site is intended to describe Kumoru concepts and how to
 
 ## Libraries
 
-* [Golang](https://github.com/kumoru/kumoru-sdk-g0)
+* [Golang](https://github.com/kumoru/kumoru-sdk-go)
 
-Please let us know if you would like to see bindings for your favorite language. The commands shown are done so with the official [kumoru cli](https://github.com/kumoru/kumoru-cli).
+Please let us know if you would like to see bindings for your favorite language. The commands shown are done so with the official [kumoru cli](https://github.com/kumoru/kumoru-sdk-go/tree/master/client/kumoru).
 
 ## Customer Fit
 

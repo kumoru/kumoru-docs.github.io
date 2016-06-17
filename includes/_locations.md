@@ -9,14 +9,14 @@ Locations are designed to be abstract and we purposly present minimal informatio
     - RAM: 2 x 3.75GiB
     - Disk: 2 x 40GB (General Purpose 2)
 
-- There is no guarantee that all containers for a given application will run on different nodes. There is a guarantee of containers being re-scheduled elsewhere if a member goes offline for any reason.
+- There is no guarantee that all containers for a given application will run on different servers. There is a guarantee of containers being re-scheduled elsewhere if a server goes offline for any reason.
 
 ## Location Security
 
- - Port Access to restricted to service in a Location. Only ports specified on an application are allowed via the loadbalancer. 
- - SSH keys are the only form of SSH access (passwords are not set)
- - Members run a recent version of the CoreOS operating system configured to auto-update. Members are configured to be part of the 'stable' channel.
- - Due to the need for intra-cluster communication, port access is not restricted between location servers.
+ - Port Access to restricted to your applications in a Location. Only ports specified on an application are allowed via the loadbalancer.
+ - SSH keys are the only form of remote access to the servers. Passwords are disabled.
+ - Members run a recent version of the CoreOS operating system and are configured to be part of the 'stable' channel.
+ - Due to the need for intra-cluster communication, port access is not restricted between servers in a location.
 
 ## Available Locations
 
@@ -42,7 +42,7 @@ We support the following provider/region combinations:
 ### CLI Parameters
 Concept | CLI Argument | Description
 ------- | ---------- | -----------
-location | 1st  | The provider specific identifier (i.e. us-east-1)
+identifier | 1st  | The provider specific region identifier (i.e. us-east-1 for amazo for Amazon)
 
 ## Add a Location
 

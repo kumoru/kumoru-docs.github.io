@@ -19,7 +19,7 @@ Deploying a new or changed application always following the same process
 1. Update the application rules if required (i.e. if a new docker tag is needed)
 1. Create a deployment.
 
-If your docker image creation is an automated process, then deploying and updated application should be as simple as causing a new deployment once that prcess has finished.
+If your docker image creation is an automated process, then deploying and updated application should be as simple as causing a new deployment once the image is built.
 
 ## Deploying via webhook
 
@@ -42,4 +42,6 @@ You can then perform a HTTP POST to cause the deployment if you don't have the C
 ```bash
 curl -X POST https://application.kumoru.io/v1/applications/fbe1646b-0651-4b2b-ac75-318bb0bdf0d1/deployments/?deployment_token=d5c545c1-e1e4-43a7-a7c8-c97e646fbd13
 ```
+
+**Note:** your application UUID and deployment_token will be different for all applications
 
