@@ -42,7 +42,7 @@ user:password@myregistry.com/username/image | Private image
 
 * If you are familiar with Docker you may notice there is no image tag listed in the `IMG_URL`. These are provided via the `rules` flag.
 
-<aside class="warning">Kumoru uses the Docker registry v1 API to retrieve a list of tags for an image. We then use this tag to create a deployment and this tag will be pulled down any time an application container starts. Unfortunately this means that if you have an tag that gets updated after creation, our service will automatically pull it down when a container starts. This means you could have mutliple versions of an tag running at the same time. The solution is to either a) never change a tag once it's created or b) always create a deployment immediately after updating your tag.
+<aside class="warning">Kumoru uses the Docker registry v1 API to retrieve a list of tags for an image. We then use this tag to create a deployment and this tag will be pulled down any time an application container starts. Unfortunately this means that if you have an tag that gets updated after creation, our service will automatically pull it down when a container starts. This means you could have mutliple versions of an tag running at the same time. The solution is to either a) never change a tag once it's created or b) always create a deployment immediately after updating your tag.</aside>
 
 ## Get an Application
 
